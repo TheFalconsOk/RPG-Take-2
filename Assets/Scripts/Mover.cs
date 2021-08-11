@@ -7,8 +7,8 @@ using UnityEngine.AI;
 public class Mover : MonoBehaviour
 {
     //config
-    [SerializeField] Transform target;
     NavMeshAgent agent;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -18,9 +18,22 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agent.destination != target.position)
+        if (Input.GetMouseButtonDown(0))
         {
-            agent.destination = target.position;
+            moveToCursor();
+        }
+        
+
+        void moveToCursor()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(ray, out hit);
+            
+            if (hasHit)
+            {
+                agent.destination = hit.point;
+            }
         }
     }
 }
