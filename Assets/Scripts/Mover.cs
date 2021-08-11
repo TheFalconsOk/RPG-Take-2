@@ -8,7 +8,7 @@ public class Mover : MonoBehaviour
 {
     //config
     [SerializeField] Transform target;
-    public NavMeshAgent agent;
+    NavMeshAgent agent;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
