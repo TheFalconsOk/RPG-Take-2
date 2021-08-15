@@ -16,7 +16,7 @@ namespace RPG.Movement
 
 
 
-        public void moveTo(Vector3 destination)
+        public void MoveTo(Vector3 destination)
         {
             GetComponent<NavMeshAgent>().destination = destination;
         }
