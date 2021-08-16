@@ -1,3 +1,4 @@
+using RPG.Combat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,20 +9,35 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour
     {
+        NavMeshAgent navMeshAgent;
+        private void Start()
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
+
         // Update is called once per frame
         void Update()
         {
-            updateAnimation();
+            UpdateAnimation();
         }
-
-
 
         public void MoveTo(Vector3 destination)
         {
-            GetComponent<NavMeshAgent>().destination = destination;
+            navMeshAgent.destination = destination;
         }
 
-        void updateAnimation()
+        public void Stop()
+        {
+            navMeshAgent.isStopped = true;
+        }
+
+        public void StartMove(Vector3 destination)
+        {
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
+        }
+
+        void UpdateAnimation()
         {
             Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
